@@ -2,11 +2,15 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Quote } from "lucide-react";
 import { useT } from "../i18n/LanguageContext";
+import { useTheme } from "../theme/ThemeContext";
+import ParticleField from "./ParticleField";
 
 export default function CEOQuote() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-120px" });
   const t = useT();
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   return (
     <section
@@ -14,6 +18,7 @@ export default function CEOQuote() {
       ref={ref}
       className="relative overflow-hidden bg-ink-950 py-28"
     >
+      <ParticleField isLight={isLight} radiusScale={1.4} />
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-20" />
       <div className="pointer-events-none absolute -left-32 top-1/3 h-96 w-96 rounded-full bg-magenta-500/10 blur-[120px]" />
       <div className="pointer-events-none absolute -right-32 bottom-10 h-96 w-96 rounded-full bg-royal-500/10 blur-[120px]" />

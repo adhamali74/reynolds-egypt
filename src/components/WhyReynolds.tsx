@@ -4,6 +4,8 @@ import { Clock, Globe2, Package, Headphones } from "lucide-react";
 import SceneCanvas from "./scenes/SceneCanvas";
 import NetworkGlobe from "./scenes/NetworkGlobe";
 import { useT } from "../i18n/LanguageContext";
+import { useTheme } from "../theme/ThemeContext";
+import ParticleField from "./ParticleField";
 
 function AnimatedCount({ end, duration = 2.2, run }: { end: number; duration?: number; run: boolean }) {
   const [n, setN] = useState(0);
@@ -103,6 +105,8 @@ export default function WhyReynolds() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-120px" });
   const t = useT();
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   return (
     <section
@@ -113,6 +117,7 @@ export default function WhyReynolds() {
       <SceneCanvas cameraPos={[3, 0.6, 6]} fov={40} className="opacity-[0.45]">
         <NetworkGlobe />
       </SceneCanvas>
+      <ParticleField isLight={isLight} radiusScale={1.4} />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,transparent_20%,#0A0B14_85%)]" />
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-40" />
       <div className="pointer-events-none absolute -left-24 top-1/3 h-96 w-96 rounded-full bg-magenta-500/10 blur-[120px]" />
