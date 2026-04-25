@@ -19,6 +19,7 @@ export default function Navbar() {
     { key: "nav.about", to: "/about" },
     { key: "nav.howItWorks", to: "/how-it-works" },
     { key: "nav.contact", to: "/contact" },
+    { key: "careers.eyebrow", to: "/careers" },
   ];
 
   useEffect(() => {
