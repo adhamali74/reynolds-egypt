@@ -260,6 +260,28 @@ export default function Hero() {
           </motion.span>
         </motion.h1>
 
+        {/* Brand lockup — logo + name + slogan, sits just below the headline */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
+          className="mt-8 inline-flex items-center gap-4"
+        >
+          <img
+            src="/assets/logo-icon.png"
+            alt="Reynolds"
+            className="h-14 w-14 object-contain drop-shadow-[0_0_18px_rgba(230,1,122,0.45)]"
+          />
+          <div className="flex flex-col leading-none">
+            <span className="font-display text-3xl font-bold tracking-[0.22em] text-white sm:text-4xl">
+              REYNOLDS
+            </span>
+            <span className="mt-1.5 text-[11px] font-medium tracking-[0.35em] text-white/50 sm:text-xs">
+              LOGISTICS &amp; FORWARDING
+            </span>
+          </div>
+        </motion.div>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
