@@ -9,6 +9,7 @@ import ServicesPage from "./pages/ServicesPage";
 import AboutPage from "./pages/AboutPage";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import ContactPage from "./pages/ContactPage";
+import CareersPage from "./pages/CareersPage";
 import { useLenis } from "./hooks/useLenis";
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/careers" element={<CareersPage />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <ErrorBoundary fallback={null}>

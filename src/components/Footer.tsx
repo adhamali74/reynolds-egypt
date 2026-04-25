@@ -37,6 +37,7 @@ export default function Footer() {
     { label: t("nav.about"), to: "/about" },
     { label: t("nav.howItWorks"), to: "/how-it-works" },
     { label: t("nav.getQuote"), to: "/contact" },
+    { label: t("careers.eyebrow"), to: "/careers" },
   ];
   const SERVICES = [
     t("services.sea.title"),
