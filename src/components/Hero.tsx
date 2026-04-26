@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useT } from "../i18n/LanguageContext";
@@ -72,15 +72,12 @@ const HEADLINE_KEYS = [
 const HIGHLIGHT_INDEX = 4;
 
 export default function Hero() {
-  const parallaxY = useMotionValue(0);
-  const parallax = useTransform(parallaxY, [0, 400], [0, -80]);
   const t = useT();
 
   return (
     <section
       id="home"
       className="relative min-h-screen w-full overflow-hidden bg-ink-950"
-      onMouseMove={(e) => parallaxY.set(e.clientY)}
     >
       {/* Hero photo */}
       <div className="absolute inset-0">
