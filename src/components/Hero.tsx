@@ -96,35 +96,36 @@ export default function Hero() {
       {/* Grid texture */}
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-25" />
 
+      {/* Brand lockup — pinned to top-center of the full-width section */}
+      <motion.div
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
+        className="absolute left-0 right-0 top-24 z-20 flex flex-col items-center text-center"
+      >
+        <img
+          src="/assets/logo-icon.png"
+          alt="Reynolds"
+          className="mb-3 h-10 w-10 object-contain drop-shadow-[0_0_14px_rgba(230,1,122,0.5)]"
+        />
+        <div className="flex flex-col leading-none">
+          <span
+            className="font-display text-[clamp(1.2rem,2.5vw,2rem)] font-bold tracking-[0.22em] text-white"
+            style={{ paddingLeft: "0.22em" }}
+          >
+            REYNOLDS
+          </span>
+          <span className="mt-1 text-[10px] font-medium tracking-[0.4em] text-white/50 sm:text-xs">
+            LOGISTICS &amp; FORWARDING
+          </span>
+        </div>
+      </motion.div>
+
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pb-24 pt-40 sm:px-10">
-        {/* Brand lockup — top center, biggest element */}
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
-          className="mb-12 flex flex-col items-center text-center"
-        >
-          <img
-            src="/assets/logo-icon.png"
-            alt="Reynolds"
-            className="mb-6 h-32 w-32 object-contain drop-shadow-[0_0_30px_rgba(230,1,122,0.6)]"
-          />
-          <div className="flex flex-col leading-none">
-            <span
-              className="font-display text-[clamp(3rem,8vw,7rem)] font-bold tracking-[0.22em] text-white"
-              style={{ paddingLeft: "0.22em" }}
-            >
-              REYNOLDS
-            </span>
-            <span className="mt-2 text-sm font-medium tracking-[0.4em] text-white/50 sm:text-base">
-              LOGISTICS &amp; FORWARDING
-            </span>
-          </div>
-        </motion.div>
 
         <motion.h1
-          className="max-w-5xl font-display text-[clamp(1.4rem,3vw,2.8rem)] font-semibold leading-[0.95] tracking-tight"
+          className="max-w-5xl font-display text-[clamp(2.5rem,6.5vw,5.5rem)] font-semibold leading-[0.95] tracking-tight"
         >
           <motion.span
             initial="hidden"
