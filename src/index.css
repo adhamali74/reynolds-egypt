@@ -276,6 +276,7 @@ html[data-theme="light"] .text-white\/10 { color: rgba(26, 26, 46, 0.15); }
 /* Hover text states */
 html[data-theme="light"] .hover\:text-white:hover { color: #1a1a2e; }
 
+
 /* Borders — white/alpha borders flip to dark/alpha */
 html[data-theme="light"] .border-white\/5 { border-color: rgba(20, 22, 40, 0.06); }
 html[data-theme="light"] .border-white\/10 { border-color: rgba(20, 22, 40, 0.09); }

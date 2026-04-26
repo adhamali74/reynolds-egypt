@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useT } from "../i18n/LanguageContext";
+import { useTheme } from "../theme/ThemeContext";
 
 const MotionLink = motion(Link);
 
@@ -73,6 +74,12 @@ const HIGHLIGHT_INDEX = 4;
 
 export default function Hero() {
   const t = useT();
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
+  const overlayBackground = isLight
+    ? "linear-gradient(to bottom, rgba(248,249,250,0.82) 0%, rgba(248,249,250,0.58) 45%, rgba(248,249,250,0.88) 100%)"
+    : "linear-gradient(to bottom, rgba(5,8,20,0.78) 0%, rgba(5,8,20,0.42) 45%, rgba(5,8,20,0.82) 100%)";
 
   return (
     <section
@@ -89,10 +96,11 @@ export default function Hero() {
         />
       </div>
 
-      {/* Dark overlay — keeps text readable over the photo */}
-      <div className="pointer-events-none absolute inset-0 bg-ink-950/70" />
-      {/* Subtle colour tint matching brand palette */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_60%_50%,rgba(94,114,250,0.12),transparent_70%),radial-gradient(ellipse_50%_50%_at_20%_60%,rgba(230,1,122,0.10),transparent_65%)]" />
+      {/* Theme-aware overlay — light wash in light mode, dark in dark mode */}
+      <div
+        className="pointer-events-none absolute inset-0 transition-[background] duration-500"
+        style={{ background: overlayBackground }}
+      />
       {/* Grid texture */}
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-25" />
 
