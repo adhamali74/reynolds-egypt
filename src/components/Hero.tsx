@@ -101,9 +101,33 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pb-24 pt-40 sm:px-10">
+        {/* Brand lockup — top center, biggest element */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
+          className="mb-12 flex flex-col items-center text-center"
+        >
+          <img
+            src="/assets/logo-icon.png"
+            alt="Reynolds"
+            className="mb-6 h-32 w-32 object-contain drop-shadow-[0_0_30px_rgba(230,1,122,0.6)]"
+          />
+          <div className="flex flex-col leading-none">
+            <span
+              className="font-display text-[clamp(3rem,8vw,7rem)] font-bold tracking-[0.22em] text-white"
+              style={{ paddingLeft: "0.22em" }}
+            >
+              REYNOLDS
+            </span>
+            <span className="mt-2 text-sm font-medium tracking-[0.4em] text-white/50 sm:text-base">
+              LOGISTICS &amp; FORWARDING
+            </span>
+          </div>
+        </motion.div>
+
         <motion.h1
-          style={{ y: parallax }}
-          className="max-w-5xl font-display text-[clamp(2.5rem,7vw,6rem)] font-semibold leading-[0.95] tracking-tight"
+          className="max-w-5xl font-display text-[clamp(1.4rem,3vw,2.8rem)] font-semibold leading-[0.95] tracking-tight"
         >
           <motion.span
             initial="hidden"
@@ -129,28 +153,6 @@ export default function Hero() {
             ))}
           </motion.span>
         </motion.h1>
-
-        {/* Brand lockup — logo + name + slogan, sits just below the headline */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-          className="mt-8 inline-flex items-center gap-4"
-        >
-          <img
-            src="/assets/logo-icon.png"
-            alt="Reynolds"
-            className="h-14 w-14 object-contain drop-shadow-[0_0_18px_rgba(230,1,122,0.45)]"
-          />
-          <div className="flex flex-col leading-none">
-            <span className="font-display text-3xl font-bold tracking-[0.22em] text-white sm:text-4xl">
-              REYNOLDS
-            </span>
-            <span className="mt-1.5 text-[11px] font-medium tracking-[0.35em] text-white/50 sm:text-xs">
-              LOGISTICS &amp; FORWARDING
-            </span>
-          </div>
-        </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
