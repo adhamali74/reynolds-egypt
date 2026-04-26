@@ -1,121 +1,8 @@
-import { Suspense, useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Line } from "@react-three/drei";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
-import * as THREE from "three";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import ErrorBoundary from "./ErrorBoundary";
 import { useT } from "../i18n/LanguageContext";
-
-function Globe() {
-  const group = useRef<THREE.Group>(null);
-  const wireMat = useMemo(
-    () =>
-      new THREE.MeshBasicMaterial({
-        color: new THREE.Color("#1E3FE0"),
-        wireframe: true,
-        transparent: true,
-        opacity: 0.55,
-      }),
-    []
-  );
-  const dotsGeo = useMemo(() => {
-    const geo = new THREE.BufferGeometry();
-    const count = 1600;
-    const positions = new Float32Array(count * 3);
-    const radius = 2.05;
-    for (let i = 0; i < count; i++) {
-      const phi = Math.acos(-1 + (2 * i) / count);
-      const theta = Math.sqrt(count * Math.PI) * phi;
-      positions[i * 3] = radius * Math.cos(theta) * Math.sin(phi);
-      positions[i * 3 + 1] = radius * Math.sin(theta) * Math.sin(phi);
-      positions[i * 3 + 2] = radius * Math.cos(phi);
-    }
-    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    return geo;
-  }, []);
-
-  const pointsMat = useMemo(
-    () =>
-      new THREE.PointsMaterial({
-        color: new THREE.Color("#E6017A"),
-        size: 0.025,
-        sizeAttenuation: true,
-        transparent: true,
-        opacity: 0.9,
-      }),
-    []
-  );
-
-  useFrame((_, delta) => {
-    if (group.current) {
-      group.current.rotation.y += delta * 0.12;
-      group.current.rotation.x = Math.sin(Date.now() * 0.00012) * 0.08;
-    }
-  });
-
-  return (
-    <group ref={group}>
-      <mesh material={wireMat}>
-        <icosahedronGeometry args={[2, 4]} />
-      </mesh>
-      <points geometry={dotsGeo} material={pointsMat} />
-      {/* Inner faint shell */}
-      <mesh>
-        <sphereGeometry args={[1.98, 48, 48]} />
-        <meshBasicMaterial
-          color="#05060D"
-          transparent
-          opacity={0.6}
-        />
-      </mesh>
-    </group>
-  );
-}
-
-function OrbitLines() {
-  const ref = useRef<THREE.Group>(null);
-  useFrame((_, d) => {
-    if (ref.current) ref.current.rotation.y -= d * 0.05;
-  });
-  const lines = useMemo(
-    () => [
-      { radius: 2.6, tilt: 0.3, color: "#E6017A" },
-      { radius: 2.9, tilt: -0.4, color: "#5E72FA" },
-      { radius: 3.2, tilt: 0.1, color: "#E6017A" },
-    ],
-    []
-  );
-  const pointsArrays = useMemo(
-    () =>
-      lines.map((l) => {
-        const pts: [number, number, number][] = [];
-        const segs = 128;
-        for (let j = 0; j <= segs; j++) {
-          const t = (j / segs) * Math.PI * 2;
-          pts.push([Math.cos(t) * l.radius, 0, Math.sin(t) * l.radius]);
-        }
-        return pts;
-      }),
-    [lines]
-  );
-  return (
-    <group ref={ref}>
-      {lines.map((l, i) => (
-        <group key={i} rotation={[l.tilt, i * 0.8, i * 0.4]}>
-          <Line
-            points={pointsArrays[i]}
-            color={l.color}
-            lineWidth={1}
-            transparent
-            opacity={0.35}
-          />
-        </group>
-      ))}
-    </group>
-  );
-}
 
 const MotionLink = motion(Link);
 
@@ -195,39 +82,22 @@ export default function Hero() {
       className="relative min-h-screen w-full overflow-hidden bg-ink-950"
       onMouseMove={(e) => parallaxY.set(e.clientY)}
     >
-      {/* Background canvas */}
+      {/* Hero photo */}
       <div className="absolute inset-0">
-        <ErrorBoundary
-          fallback={
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(94,114,250,0.12),transparent_65%),radial-gradient(ellipse_at_70%_70%,rgba(230,1,122,0.1),transparent_60%)]" />
-          }
-        >
-          <Canvas
-            camera={{ position: [0, 0, 6.5], fov: 45 }}
-            dpr={[1, 1.8]}
-            gl={{ antialias: true, alpha: true, powerPreference: "high-performance", failIfMajorPerformanceCaveat: false }}
-            onCreated={({ gl }) => {
-              const canvas = gl.domElement;
-              canvas.addEventListener("webglcontextlost", (e) => e.preventDefault(), false);
-            }}
-          >
-            <ambientLight intensity={0.5} />
-            <Suspense fallback={null}>
-              <Globe />
-              <OrbitLines />
-            </Suspense>
-            <OrbitControls
-              enableZoom={false}
-              enablePan={false}
-              enableRotate={false}
-            />
-          </Canvas>
-        </ErrorBoundary>
+        <img
+          src="/assets/backgrounds/hero-ship.jpg"
+          alt=""
+          aria-hidden
+          className="h-full w-full object-cover object-center"
+        />
       </div>
 
-      {/* Vignette + grid */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#05060D_85%)]" />
-      <div className="pointer-events-none absolute inset-0 grid-bg opacity-40" />
+      {/* Dark overlay — keeps text readable over the photo */}
+      <div className="pointer-events-none absolute inset-0 bg-ink-950/70" />
+      {/* Subtle colour tint matching brand palette */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_60%_50%,rgba(94,114,250,0.12),transparent_70%),radial-gradient(ellipse_50%_50%_at_20%_60%,rgba(230,1,122,0.10),transparent_65%)]" />
+      {/* Grid texture */}
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-25" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pb-24 pt-40 sm:px-10">
